@@ -1,0 +1,13 @@
+[package]
+name = "antipremiumbot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+teloxide = { features = ["macros", "auto-send", "webhooks-axum"], git = "https://github.com/teloxide/teloxide.git", branch = "dev" }
+url = "2.2.2"
+tokio = { version =  "1.8", features = ["rt-multi-thread", "macros"] }
+rand = "0.8.5"
+
+[patch.crates-io]
+teloxide-core = { git = "https://github.com/teloxide/teloxide-core", rev = "f03f34c" }
