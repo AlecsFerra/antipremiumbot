@@ -28,7 +28,6 @@ async fn main() {
     teloxide::repl_with_listener(
         bot,
         |message: Message, bot: AutoSend<Bot>| async move {
-            let was_sent_by_premium = message.from().map_or(false, |u| u.is_premium);
             if message.sticker().map_or(false, |s| s.premium_animation.is_some()) {
                 let user = message.from().unwrap();
                 bot.delete_message(message.chat.id, message.id).await?;
