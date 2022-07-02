@@ -1,4 +1,3 @@
-use rand::prelude::*;
 use std::env;
 use teloxide::{dispatching::update_listeners::webhooks, prelude::*};
 use url::Url;
@@ -30,17 +29,7 @@ async fn main() {
         bot,
         |message: Message, bot: AutoSend<Bot>| async move {
             let was_sent_by_premium = message.from().map_or(false, |u| u.is_premium);
-            if was_sent_by_premium && rand::thread_rng().gen_bool(0.20) {
-                let user = message.from().unwrap();
-                bot.delete_message(message.chat.id, message.id).await?;
-                bot.send_message(
-                    message.chat.id,
-                    format!(
-                        "Ciao {}, i messaggi inviati da gli utenti premium hanno il 20% di possibilità di rompere il cazzo",
-                        user.mention().unwrap_or(user.full_name())
-                    )
-                ).await?;
-            } else if message.sticker().map_or(false, |s| s.premium_animation.is_some()) {
+            if message.sticker().map_or(false, |s| s.premium_animation.is_some()) {
                 let user = message.from().unwrap();
                 bot.delete_message(message.chat.id, message.id).await?;
                 bot.send_message(
